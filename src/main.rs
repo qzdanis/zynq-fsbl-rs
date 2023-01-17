@@ -5,6 +5,9 @@ mod cpu;
 #[cfg(feature = "arty-z7")]
 use fsbl::arty_z7::prelude::*;
 
+use core::writeln;
+
 fn main() {
-    let _board = Board::init();
+    let mut board = Board::init();
+    let _ = writeln!(board, "board initialization successful");
 }

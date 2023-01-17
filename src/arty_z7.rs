@@ -3,6 +3,7 @@ mod io;
 pub mod prelude;
 
 use core::ffi::{c_char, c_int, CStr};
+use core::fmt;
 
 #[link(name = "ps7")]
 extern "C" {
@@ -37,5 +38,17 @@ impl Board {
         }
 
         Board {}
+    }
+}
+
+impl fmt::Write for Board {
+    fn write_str(&mut self, s: &str) -> fmt::Result {
+        io::uart0_write(s.as_bytes());
+
+        if s.ends_with("\n") {
+            io::uart0_write(b"\r");
+        }
+
+        Ok(())
     }
 }
