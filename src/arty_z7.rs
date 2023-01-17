@@ -19,7 +19,6 @@ impl Board {
         let mut ret = unsafe { ps7_init() };
         io::uart0_init();
 
-        //let msg = unsafe { getPS7MessageInfo(ret as u32) };
         let msg = unsafe { CStr::from_ptr(getPS7MessageInfo(ret as u32)) };
         io::uart0_writeln(msg.to_bytes());
 
@@ -30,7 +29,6 @@ impl Board {
         ret = unsafe { ps7_post_config() };
 
         if ret != 0 {
-            //let msg = unsafe { getPS7MessageInfo(ret as u32) };
             let msg = unsafe { CStr::from_ptr(getPS7MessageInfo(ret as u32)) };
             io::uart0_writeln(msg.to_bytes());
 
